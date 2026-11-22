@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aspire: Your stack, streamlined</title>
-<meta name="description" content="Aspire is a code-first toolkit to build, run, observe and deploy distributed apps.">
+<title>Aspire: Compose distributed apps in code</title>
+<meta name="description" content="Aspire is an agent-ready, code-first tool for composing, debugging, and deploying distributed applications.">
 <link id="favicon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%23c35cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M16 2 29 9.5v13L16 30 3 22.5v-13z' fill='url(%23g)'/%3E%3Cpath d='M16 8 22 23h-3l-1.2-3.2h-3.6L13 23h-3zm0 5-1 3.6h2z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -93,31 +93,29 @@
   <!-- ============ HERO ============ -->
   <section class="hero" id="top">
     <div class="hero-copy">
-      <a class="pill" href="#features"><span class="dot"></span> <span class="haunt" id="hero-pill" data-dark="Aspire 13.4 is still here →" data-at="2">Aspire 13.4 is here: meet the new CLI →</span></a>
-      <h1><span class="haunt" id="hero-a">Your stack,</span><br><span class="grad haunt" id="hero-b" data-dark="consumed." data-at="2">streamlined.</span></h1>
-      <p class="lead haunt" id="hero-lead">Aspire gives you a code-first way to model, run and deploy distributed apps. Describe your services, databases and integrations in one AppHost, and Aspire takes care of orchestration, service discovery and telemetry.</p>
+      <a class="pill" href="#features"><span class="dot"></span> <span class="haunt" id="hero-pill" data-dark="✨ Aspire 17 is still here. It never left." data-at="2">✨ Aspire 17, our newest major release, is here! Find out what's new →</span></a>
+      <p class="eyebrow haunt" data-dark="Free. Open. Forever." data-at="2">Free and open source</p>
+      <h1><span class="haunt" id="hero-a" data-dark="Compose distributed souls" data-at="2">Compose distributed apps</span><br><span class="grad haunt" id="hero-b" data-dark="in flesh." data-at="2">in code.</span></h1>
+      <p class="lead haunt" id="hero-lead" data-dark="Aspire is an agent-ready, code-first tool for composing, debugging, and deploying distributed applications. The agent is ready. It has been ready for a long time." data-at="2">Aspire is an agent-ready, code-first tool for composing, debugging, and deploying distributed applications.</p>
       <div class="cta">
-        <a class="btn primary" href="#features">Get started</a>
-        <a class="btn ghost" href="#run">▶ Watch the demo</a>
+        <a class="btn primary" href="#features">Try Aspire</a>
+        <a class="btn ghost" href="#run">Explore the docs</a>
       </div>
-      <div class="install"><span class="prompt">$</span> <code>aspire new aspire-starter</code><button class="copy" type="button" title="Copy">⧉</button></div>
+      <div class="install"><span class="prompt">$</span> <code>aspire run</code><button class="copy" type="button" title="Copy">⧉</button></div>
     </div>
     <div class="window code-window">
-      <div class="win-bar"><i></i><i></i><i></i><span>AppHost.cs</span></div>
-<pre><code><span class="k">var</span> builder = DistributedApplication.CreateBuilder(args);
+      <div class="win-bar"><i></i><i></i><i></i><span>apphost.mts</span></div>
+<pre><code><span class="k">import</span> { createBuilder } <span class="k">from</span> <span class="s">'./.aspire/modules/aspire.mjs'</span>;
 
-<span class="k">var</span> cache = builder.AddRedis(<span class="s">"cache"</span>);
-<span class="k">var</span> db = builder.AddPostgres(<span class="s">"pg"</span>)
-               .AddDatabase(<span class="s">"catalog"</span>);
+<span class="k">const</span> builder = <span class="k">await</span> createBuilder();
 
-<span class="k">var</span> api = builder.AddProject&lt;Projects.Api&gt;(<span class="s">"api"</span>)
-                 .WithReference(cache)
-                 .WithReference(db);
+<span class="c">// Add Vite frontend</span>
+<span class="k">const</span> frontend = <span class="k">await</span> builder
+    .addViteApp(<span class="s">"frontend"</span>, <span class="s">"./frontend"</span>)
+    .withHttpEndpoint({ env: <span class="s">"PORT"</span> });
 
-builder.AddViteApp(<span class="s">"web"</span>, <span class="s">"../web"</span>)
-       .WithReference(api);
-
-builder.Build().Run();</code></pre>
+<span class="c haunt" data-dark="// Add the one upstairs" data-at=".2">// That's it. Run it.</span>
+<span class="k">await</span> builder.build().run();</code></pre>
     </div>
   </section>
 
@@ -130,15 +128,15 @@ builder.Build().Run();</code></pre>
 
   <!-- ============ STAGE 1: features ============ -->
   <section class="block" id="features">
-    <h2 class="haunt" data-dark="Everything you need. Nothing you can leave." data-at=".22">Everything you need to build distributed apps</h2>
-    <p class="sub">One toolchain, from <code>F5</code> on your laptop to production in the cloud.</p>
+    <h2 class="haunt" data-dark="From repository to something that won't stop running." data-at=".22">From repository to running system.</h2>
+    <p class="sub">The AppHost is the source of truth for how the application fits together across development, diagnostics, and deployment.</p>
     <div class="grid cards">
-      <article class="card creep" style="--r:-1.5"><div class="ico">⌘</div><h3>Code-first AppHost</h3><p class="haunt">Model your whole app in C#, Python or TypeScript. No YAML, no guesswork, no drift between environments.</p></article>
-      <article class="card creep" style="--r:2"><div class="ico">⚡</div><h3>100+ integrations</h3><p class="haunt">Redis, Postgres, Kafka, Azure, AWS and more. Add them with one line and get health checks and telemetry for free.</p></article>
-      <article class="card creep" style="--r:-3"><div class="ico blink-eye">👁</div><h3>Dashboard &amp; OpenTelemetry</h3><p class="haunt" data-dark="Aspire watches everything. Aspire watches you." data-at=".16">Aspire watches everything, so you don't have to. Logs, traces and metrics in one place.</p></article>
-      <article class="card creep" style="--r:1"><div class="ico">🔗</div><h3>Service discovery</h3><p class="haunt">References become connection strings and endpoints automatically. Services just find each other.</p></article>
-      <article class="card creep" style="--r:4"><div class="ico">☁</div><h3>Deploy anywhere</h3><p class="haunt">Publish to Azure Container Apps, Kubernetes or Docker Compose straight from the same model.</p></article>
-      <article class="card creep" style="--r:-2"><div class="ico">🧩</div><h3>Polyglot by design</h3><p class="haunt" data-dark="Every language. Every voice. They all talk at night." data-at=".26">.NET, Node.js, Python, Go and containers, all orchestrated together.</p></article>
+      <article class="card creep" style="--r:-1.5"><div class="ico">01</div><h3>Polyglot by design</h3><p class="haunt" data-dark="C#, TypeScript, Python, Java, Go, Rust. Every voice. They all talk at night." data-at=".26">C#, TypeScript, JavaScript, Python, Java, Go, Rust and containers. Bring every service into one model.</p></article>
+      <article class="card creep" style="--r:2"><div class="ico">02</div><h3>Agent-ready</h3><p class="haunt" data-dark="Give AI the full application context. It already took the rest." data-at=".2">Give GitHub Copilot, Claude, OpenAI or any AI tool the full application context: AppHost, runtime and telemetry.</p></article>
+      <article class="card creep" style="--r:-3"><div class="ico">03</div><h3>One application model</h3><p class="haunt">Compose the app in code, run the whole system, observe from the first request and deploy with the same model.</p></article>
+      <article class="card creep" style="--r:1"><div class="ico">04</div><h3>Local first, production ready</h3><p class="haunt">One model. Every environment. Development, testing and deployment stay connected without the architecture drifting.</p></article>
+      <article class="card creep" style="--r:4"><div class="ico blink-eye">👁</div><h3>Observability included</h3><p class="haunt" data-dark="See the whole application. The whole application sees you." data-at=".16">See the whole application. OpenTelemetry logs, traces and metrics, locally, from the first request.</p></article>
+      <article class="card creep" style="--r:-2"><div class="ico">06</div><h3>Extensible by default</h3><p class="haunt">Use the services you already trust. Databases, caches, messaging, cloud resources and community integrations.</p></article>
     </div>
   </section>
 
@@ -146,12 +144,12 @@ builder.Build().Run();</code></pre>
   <section class="block" id="run">
     <div class="split">
       <div>
-        <h2 class="haunt" data-dark="Run everything with one command. Everything." data-at=".3">Run everything with one command</h2>
-        <p class="sub haunt">Type <code>aspire run</code> and every service, container and database starts in the right order, wired together, with a dashboard ready to go.</p>
+        <h2 class="haunt" data-dark="Run everything locally. Everything." data-at=".3">Run everything locally.</h2>
+        <p class="sub haunt">Start projects, containers, and data services together. Aspire wires local endpoints, configuration, and service discovery from the AppHost.</p>
         <ul class="checks">
-          <li>Automatic dependency ordering</li>
-          <li>Hot reload across services</li>
-          <li class="haunt" data-dark="Resources you never declared" data-at=".3">Persistent containers between runs</li>
+          <li>Service discovery, already connected</li>
+          <li>Dev-time configuration from the AppHost</li>
+          <li class="haunt" data-dark="Resources you never declared" data-at=".3">Every healthy resource in the dashboard</li>
         </ul>
       </div>
       <div class="window term">
@@ -163,8 +161,8 @@ builder.Build().Run();</code></pre>
 
   <!-- ============ STAGE 3: dashboard ============ -->
   <section class="block" id="dashboard">
-    <h2 class="haunt" data-dark="See what's really running" data-at=".38">See everything that's running</h2>
-    <p class="sub haunt" data-dark="Something is running that you did not start." data-at=".44">The Aspire dashboard shows every resource, log, trace and metric the moment your app starts.</p>
+    <h2 class="haunt" data-dark="See the whole application. All of it." data-at=".38">See the whole application.</h2>
+    <p class="sub haunt" data-dark="Something is running that you did not start." data-at=".44">View OpenTelemetry logs, traces, and metrics locally. Follow requests across services with your team or coding agent.</p>
     <div class="window dash creep" style="--r:-.8">
       <div class="win-bar"><i></i><i></i><i></i><span>Aspire Dashboard · Resources</span></div>
       <table>
@@ -173,7 +171,7 @@ builder.Build().Run();</code></pre>
           <tr><td>cache</td><td>Container</td><td><b class="st ok haunt" data-dark="Hungry" data-at=".5">Running</b></td><td>13:02:11</td><td>tcp://localhost:6379</td></tr>
           <tr><td>pg</td><td>Container</td><td><b class="st ok haunt" data-dark="Breathing" data-at=".46">Running</b></td><td>13:02:11</td><td>tcp://localhost:5432</td></tr>
           <tr><td>api</td><td>Project</td><td><b class="st ok haunt" data-dark="Screaming" data-at=".56">Running</b></td><td>13:02:14</td><td>https://localhost:7311</td></tr>
-          <tr><td>web</td><td>Vite</td><td><b class="st ok haunt" data-dark="Pretending" data-at=".52">Running</b></td><td>13:02:15</td><td>http://localhost:5173</td></tr>
+          <tr><td>frontend</td><td>Vite</td><td><b class="st ok haunt" data-dark="Pretending" data-at=".52">Running</b></td><td>13:02:15</td><td>http://localhost:5173</td></tr>
           <tr class="intruder"><td class="haunt" data-dark="the-one-upstairs" data-at=".48">watcher</td><td>???</td><td><b class="st bad haunt" data-dark="Behind you" data-at=".42">Watching</b></td><td>1987-10-31</td><td class="haunt" data-dark="your room" data-at=".5">—</td></tr>
         </tbody>
       </table>
@@ -188,20 +186,20 @@ builder.Build().Run();</code></pre>
 
   <!-- ============ STAGE 4: integrations ============ -->
   <section class="block" id="integrations">
-    <h2 class="haunt" data-dark="Over 100 integrations. More arrive every night." data-at=".5">Over 100 integrations, one line each</h2>
-    <p class="sub"><code>aspire add redis</code> and you're done.</p>
+    <h2 class="haunt" data-dark="Use the services you already trust. Trust is a mistake." data-at=".5">Use the services you already trust.</h2>
+    <p class="sub">Databases, caches, messaging, cloud resources and community integrations through the same fluent application model.</p>
     <div class="grid tiles">
       <div class="tile creep" style="--r:3"><b style="background:#d82c20">R</b>Redis</div>
       <div class="tile creep" style="--r:-6"><b style="background:#336791">P</b>PostgreSQL</div>
       <div class="tile creep" style="--r:8"><b style="background:#ff6600">Q</b>RabbitMQ</div>
       <div class="tile creep" style="--r:-4"><b style="background:#231f20">K</b>Kafka</div>
       <div class="tile creep" style="--r:12"><b style="background:#13aa52">M</b>MongoDB</div>
-      <div class="tile creep" style="--r:-9"><b style="background:#a91d22">S</b>SQL Server</div>
-      <div class="tile creep" style="--r:5"><b style="background:#0078d4">A</b>Azure Storage</div>
-      <div class="tile creep" style="--r:-14"><b style="background:#3b5998">C</b>Cosmos DB</div>
-      <div class="tile creep" style="--r:7"><b style="background:#4d4d4d">O</b>Ollama</div>
+      <div class="tile creep" style="--r:-9"><b style="background:#0d2192">D</b>Dapr</div>
+      <div class="tile creep" style="--r:5"><b style="background:#0078d4">A</b>Azure</div>
+      <div class="tile creep" style="--r:-14"><b style="background:#ff9900">A</b>AWS</div>
+      <div class="tile creep" style="--r:7"><b style="background:#10a37f">O</b>OpenAI</div>
       <div class="tile creep" style="--r:-3"><b style="background:#008bb9">K</b>Keycloak</div>
-      <div class="tile creep" style="--r:16"><b style="background:#3c873a">N</b>Node.js</div>
+      <div class="tile creep" style="--r:16"><b style="background:#326ce5">K</b>Kubernetes</div>
       <div class="tile creep odd-tile" style="--r:-22"><b style="background:#300">✝</b><span class="haunt" data-dark="Aspire.Hosting.Exorcism (failed)" data-at=".58">Aspire.Hosting.Exorcism (preview)</span></div>
     </div>
   </section>
@@ -237,7 +235,7 @@ builder.Build().Run();</code></pre>
 
   <!-- ============ STAGE 7: deploy ============ -->
   <section class="block bleed" id="deploy">
-    <h2 class="haunt" data-dark="There is nowhere to deploy. There is only here." data-at=".72">Deploy anywhere</h2>
+    <h2 class="haunt" data-dark="Deploy with the same model. There is nowhere else to go." data-at=".72">Deploy with the same application model.</h2>
     <div class="grid cards three">
       <article class="card creep" style="--r:-6"><h3 class="haunt" data-dark="Azure (it followed you)" data-at=".74">Azure Container Apps</h3><code>aspire deploy</code></article>
       <article class="card creep" style="--r:9"><h3 class="haunt" data-dark="Kubernetes (the pods are hatching)" data-at=".75">Kubernetes</h3><code>aspire publish -p k8s</code></article>

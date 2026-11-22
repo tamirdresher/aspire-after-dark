@@ -76,7 +76,8 @@ h1 { font-size: clamp(44px, 6vw, 76px); line-height: 1.02; letter-spacing: -.035
 .win-bar i:nth-child(2) { background: #febc2e; } .win-bar i:nth-child(3) { background: #28c840; }
 .win-bar span { margin-left: 10px; }
 pre { margin: 0; padding: 20px 22px; font: 13.5px/1.65 "Cascadia Code", Consolas, monospace; overflow-x: auto; }
-.k { color: hsl(calc(210 + var(--d) * 150) 80% 70%); } .s { color: hsl(calc(30 - var(--d) * 30) 75% 65%); }
+.k { color: hsl(calc(210 + var(--d) * 150) 80% 70%); } .s { color: hsl(calc(30 - var(--d) * 30) 75% 65%); } .c { color: hsl(130 calc(30% - var(--d) * 30%) 55%); font-style: italic; }
+.eyebrow { margin: 22px 0 -8px; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--p1); }
 
 .logos { text-align: center; padding: 20px 40px 70px; color: var(--muted); font-size: 14px; }
 .logo-row { display: flex; flex-wrap: wrap; gap: 46px; justify-content: center; margin-top: 18px; font-weight: 700; font-size: 19px; opacity: .65; letter-spacing: .02em; }
@@ -217,3 +218,4 @@ body.d60 .av::before { left: 11px; } body.d60 .av::after { right: 11px; }
   .dash { overflow-x: auto; }
   #consent { flex-direction: column; align-items: stretch; }
 }
+.ico { font-size: 15px; font-weight: 700; }

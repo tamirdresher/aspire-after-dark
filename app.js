@@ -85,12 +85,13 @@
     ["✔ Starting cache (redis)", "ok"],
     ["✔ Starting pg (postgres)", "ok"],
     ["✔ Starting api", "ok"],
-    ["✔ Starting web", "ok"],
+    ["✔ Starting frontend (vite)", "ok"],
     ["✔ Starting watcher", "ok"],
     ["", ""],
     ["Dashboard: https://localhost:17037", ""],
+    ["5 resources healthy", "ok"],
     ["", ""],
-    ["⚠ Resource 'watcher' is not defined in AppHost.cs", "warn"],
+    ["⚠ Resource 'watcher' is not defined in apphost.mts", "warn"],
     ["⚠ Resource 'watcher' cannot be stopped", "warn"],
     ["watcher: i was always here.", "err"],
   ];
@@ -121,7 +122,7 @@
   const sw = `${screen.width}x${screen.height}`;
   const hour = new Date().getHours();
   const LOGS = [
-    { at: 0, lines: [["i", "api", "Request GET /api/catalog completed 200 in 84ms"], ["i", "web", "GET / 200"], ["i", "cache", "Accepted connection from 172.18.0.5"], ["i", "pg", "checkpoint complete: wrote 12 buffers"], ["i", "api", "Health check 'pg' Healthy"]] },
+    { at: 0, lines: [["i", "api", "Request GET /api/catalog completed 200 in 84ms"], ["i", "frontend", "GET / 200"], ["i", "cache", "Accepted connection from 172.18.0.5"], ["i", "pg", "checkpoint complete: wrote 12 buffers"], ["i", "api", "Health check 'pg' Healthy"]] },
     { at: 0.6, lines: [["w", "pg", "row count for table 'users' increased by 1 (no INSERT issued)"], ["w", "api", "request from 127.0.0.1 has no user agent. it has a face."], ["w", "cache", "key 'last_seen' updated: 0 seconds ago"], ["w", "watcher", "footsteps on /stairs"], ["w", "web", `viewport ${innerWidth}x${innerHeight}. screen ${sw}. it's behind the screen.`]] },
     { at: 0.66, lines: [["e", "api", "cannot find its own body"], ["e", "pg", "relation \"exit\" does not exist"], ["e", "watcher", "it can see the cursor"], ["e", "web", `it is ${now()}. ${hour < 6 || hour > 22 ? "you should be asleep." : "it is darker than it looks."}`], ["e", "cache", "something is in the walls"]] },
     { at: 0.7, lines: [["x", "???", "HELP ME"], ["x", "???", "DON'T TURN AROUND"], ["x", "api", "i can hear it breathing in the traces"], ["x", "???", "it's wearing the dashboard"], ["x", "you", "keep scrolling"]] },
@@ -293,9 +294,9 @@
   const favicon = $("#favicon"), origFav = favicon.href;
   const eyeFav = "data:image/svg+xml," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='#000'/><ellipse cx='16' cy='16' rx='14' ry='7' fill='#e8dcc0'/><circle cx='16' cy='16' r='6' fill='#a00'/><circle cx='16' cy='16' r='2.6' fill='#000'/></svg>");
   const titles = [
-    [0, "Aspire: Your stack, streamlined"],
-    [0.3, "Aspire: Your stack, streamlined."],
-    [0.5, "Aspire: Your stack, still running"],
+    [0, "Aspire: Compose distributed apps in code"],
+    [0.3, "Aspire: Compose distributed apps in code."],
+    [0.5, "Aspire: Compose distributed apps in blood"],
     [0.65, "Aspire: who else is here?"],
     [0.8, "don't look behind you"],
     [0.92, "IT IS RUNNING"],
@@ -317,7 +318,7 @@
   // ---------- misc: right click, stars ----------
   function toast(text, ms = 700) { const t = $("#toast"); t.textContent = text; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), ms); }
   addEventListener("contextmenu", (e) => { if (state.d > 0.6 || state.haunted) { e.preventDefault(); toast("no."); } });
-  $(".copy").onclick = () => { navigator.clipboard && navigator.clipboard.writeText(state.haunted ? "aspire run --forever" : "aspire new aspire-starter"); toast(state.haunted ? "too late" : "copied", 600); };
+  $(".copy").onclick = () => { navigator.clipboard && navigator.clipboard.writeText(state.haunted ? "aspire run --forever" : "aspire run"); toast(state.haunted ? "too late" : "copied", 600); };
   const stars = $("#stars");
 
   // ---------- jump scare ----------
