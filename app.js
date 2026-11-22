@@ -11,9 +11,18 @@
   const state = { target: 0, d: 0, haunted: false, scared: false, mouse: { x: innerWidth / 2, y: innerHeight / 2 } };
 
   // ---------- scroll progress ----------
+  // dread is anchored to sections so each stage of content gets its own level of wrongness
+  const ANCHORS = [["#top", 0], ["#features", 0.1], ["#run", 0.24], ["#dashboard", 0.36], ["#integrations", 0.48], ["#voices", 0.58], ["#observe", 0.65], ["#deploy", 0.71], ["#dark", 0.78], ["#abyss", 0.87], ["#end-sentinel", 1]];
   function progress() {
-    const max = root.scrollHeight - innerHeight;
-    return max > 0 ? clamp(scrollY / max) : 0;
+    const y = scrollY + innerHeight * 0.55;
+    const pts = ANCHORS.map(([s, v]) => [document.querySelector(s).getBoundingClientRect().top + scrollY, v]);
+    pts[0][0] = 0;
+    pts[pts.length - 1][0] = Math.max(pts[pts.length - 1][0], pts[pts.length - 2][0] + 1);
+    if (y <= pts[0][0]) return 0;
+    for (let i = 1; i < pts.length; i++) {
+      if (y <= pts[i][0]) { const [a, va] = pts[i - 1], [b, vb] = pts[i]; return va + (vb - va) * ((y - a) / (b - a)); }
+    }
+    return 1;
   }
   addEventListener("scroll", () => { state.target = progress(); }, { passive: true });
   addEventListener("resize", () => { state.target = progress(); sizeCanvas(); });
